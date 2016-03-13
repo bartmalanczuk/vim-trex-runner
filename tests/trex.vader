@@ -1,0 +1,32 @@
+Execute (Get Trex in 1m):
+  call GetTrexFrame(1)
+
+Expect (Trex have left leg in air):
+       ⣴⣲⣶⣶⣦
+       ⣿⣿⣟⣛⠛
+  ⣧⡀⢀⣤⣾⣿⣿⢤  
+  ⠻⣿⣿⣿⣿⣿⡟   
+   ⠈⢻⡿⠛⠯    
+    ⠘⠂      
+
+Execute (Get Trex in 125m):
+  call GetTrexFrame(125)
+
+Expect (Trex have right leg in air):
+       ⣴⣲⣶⣶⣦
+       ⣿⣿⣟⣛⠛
+  ⣧⡀⢀⣤⣾⣿⣿⢤  
+  ⠻⣿⣿⣿⣿⣿⡟   
+   ⠈⠻⣟⠻⡏    
+       ⠓    
+
+Execute (Get Trex in 250m):
+  call GetTrexFrame(250)
+
+Expect (Trex have left leg in air):
+       ⣴⣲⣶⣶⣦
+       ⣿⣿⣟⣛⠛
+  ⣧⡀⢀⣤⣾⣿⣿⢤  
+  ⠻⣿⣿⣿⣿⣿⡟   
+   ⠈⢻⡿⠛⠯    
+    ⠘⠂      
