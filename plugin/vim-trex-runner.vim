@@ -2,24 +2,7 @@ function! s:SetDefaults()
   let s:is_game_running = 1
   let s:game_timekeeper = 1
   let s:current_trex_frame = 0
-  let s:trex_frames = [
-  \ [
-      \ "     ⣴⣲⣶⣶⣦",
-      \ "     ⣿⣿⣟⣛⠛",
-      \ "⣧⡀⢀⣤⣾⣿⣿⢤  ",
-      \ "⠻⣿⣿⣿⣿⣿⡟   ",
-      \ " ⠈⢻⡿⠛⠯    ",
-      \ "  ⠘⠂      "
-    \],
-  \  [
-      \ "     ⣴⣲⣶⣶⣦",
-      \ "     ⣿⣿⣟⣛⠛",
-      \ "⣧⡀⢀⣤⣾⣿⣿⢤  ",
-      \ "⠻⣿⣿⣿⣿⣿⡟   ",
-      \ " ⠈⠻⣟⠻⡏    ",
-      \ "     ⠓    "
-    \]
-  \]
+  let s:trex_frames = g:vim_trex_runner#patterns#trex_frames
 endfunction
 
 function! s:Draw()
