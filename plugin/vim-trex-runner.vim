@@ -1,6 +1,6 @@
 function! s:SetDefaults()
   let s:is_game_running = 1
-  let s:game_timekeeper = 1
+  let s:timekeeper = 1
   let s:current_trex_frame = 0
   let s:trex_frames = g:vim_trex_runner#patterns#trex_frames
 endfunction
@@ -16,15 +16,20 @@ function! s:ProcessUserInput()
 endfunction
 
 function! s:ProcessLoopParameters(life_time)
-  if s:game_timekeeper > a:life_time
+  if s:timekeeper > a:life_time
     let s:is_game_running = 0
   endif
 endfunction
 
+function! s:UpdateTrex()
+  let s:current_trex_frame = !s:current_trex_frame
+endfunction
+
 function! s:Update()
-  if (s:game_timekeeper % 125) == 0
-    let s:current_trex_frame = !s:current_trex_frame
+  if (s:timekeeper % 125) == 0
+    call s:UpdateTrex()
   endif
+  let s:timekeeper += 1
 endfunction
 
 function! Trex()
@@ -34,7 +39,6 @@ function! Trex()
     call s:Draw()
     call s:ProcessUserInput()
     call s:Update()
-    let s:game_timekeeper += 1
     sleep 1m
   endwhile
 endfunction
@@ -45,6 +49,5 @@ function! GetTrexFrame(life_time)
     call s:Draw()
     call s:ProcessLoopParameters(a:life_time)
     call s:Update()
-    let s:game_timekeeper += 1
   endwhile
 endfunction
