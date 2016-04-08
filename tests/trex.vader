@@ -1,32 +1,35 @@
-Execute (Get Trex in 1m):
-  call GetTrexFrame(1)
+Before:
+  let trex_right_footed = [
+    \ "⠀⠀⠀⠀⠀⣴⣲⣶⣶⣦",
+    \ "⠀⠀⠀⠀⠀⣿⣿⣟⣛⠛",
+    \ "⣧⡀⢀⣤⣾⣿⣿⢤⠀⠀",
+    \ "⠻⣿⣿⣿⣿⣿⡟⠀⠀⠀",
+    \ "⠀⠈⢻⡿⠛⠯⠀⠀⠀⠀",
+    \ "⠀⠀⠘⠂⠀⠀⠀⠀⠀⠀"
+  \ ]
+  let trex_left_footed = [
+    \ "⠀⠀⠀⠀⠀⣴⣲⣶⣶⣦",
+    \ "⠀⠀⠀⠀⠀⣿⣿⣟⣛⠛",
+    \ "⣧⡀⢀⣤⣾⣿⣿⢤⠀⠀",
+    \ "⠻⣿⣿⣿⣿⣿⡟⠀⠀⠀",
+    \ "⠀⠈⠻⣟⠻⡏⠀⠀⠀⠀",
+    \ "⠀⠀⠀⠀⠀⠓⠀⠀⠀⠀"
+  \ ]
 
-Expect (Trex have left leg in air):
-       ⣴⣲⣶⣶⣦
-       ⣿⣿⣟⣛⠛
-  ⣧⡀⢀⣤⣾⣿⣿⢤  
-  ⠻⣿⣿⣿⣿⣿⡟   
-   ⠈⢻⡿⠛⠯    
-    ⠘⠂      
+Execute (Update Trex to moment 1):
+  call vim_trex_runner#trex#update_trex(1)
 
-Execute (Get Trex in 125m):
-  call GetTrexFrame(125)
+Then (GetTrexFrame returns list with trex standing on right leg):
+  AssertEqual trex_right_footed, vim_trex_runner#trex#get_trex_frame()
 
-Expect (Trex have right leg in air):
-       ⣴⣲⣶⣶⣦
-       ⣿⣿⣟⣛⠛
-  ⣧⡀⢀⣤⣾⣿⣿⢤  
-  ⠻⣿⣿⣿⣿⣿⡟   
-   ⠈⠻⣟⠻⡏    
-       ⠓    
+Execute (Update Trex to moment 125):
+  call vim_trex_runner#trex#update_trex(125)
 
-Execute (Get Trex in 250m):
-  call GetTrexFrame(250)
+Then (GetTrexFrame returns list with trex standing on left leg):
+  AssertEqual trex_left_footed, vim_trex_runner#trex#get_trex_frame()
 
-Expect (Trex have left leg in air):
-       ⣴⣲⣶⣶⣦
-       ⣿⣿⣟⣛⠛
-  ⣧⡀⢀⣤⣾⣿⣿⢤  
-  ⠻⣿⣿⣿⣿⣿⡟   
-   ⠈⢻⡿⠛⠯    
-    ⠘⠂      
+Execute (Update Trex to moment 250):
+  call vim_trex_runner#trex#update_trex(250)
+
+Then (GetTrexFrame returns list with trex standing on right leg):
+  AssertEqual trex_right_footed, vim_trex_runner#trex#get_trex_frame()

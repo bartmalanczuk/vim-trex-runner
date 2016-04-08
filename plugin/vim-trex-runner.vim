@@ -1,13 +1,13 @@
-function! s:SetDefaults()
-  let s:is_game_running = 1
-  let s:timekeeper = 1
-  let s:current_trex_frame = 0
-  let s:trex_frames = g:vim_trex_runner#patterns#trex_frames
-endfunction
+let s:is_game_running = 1
+let s:timekeeper = 1
 
 function! s:Draw()
-  for line in [1, 2, 3, 4, 5, 6]
-    call setline(line, s:trex_frames[s:current_trex_frame][line-1])
+  let trex = vim_trex_runner#trex#get_trex_frame()
+  let ground = vim_trex_runner#ground#get_ground_frame()
+  let canvas = vim_trex_runner#canvas#get_canvas(ground, trex)
+
+  for line in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+    call setline(line, canvas[line-1])
   endfor
   redraw
 endfunction
@@ -15,39 +15,19 @@ endfunction
 function! s:ProcessUserInput()
 endfunction
 
-function! s:ProcessLoopParameters(life_time)
-  if s:timekeeper > a:life_time
-    let s:is_game_running = 0
-  endif
-endfunction
-
-function! s:UpdateTrex()
-  let s:current_trex_frame = !s:current_trex_frame
-endfunction
-
 function! s:Update()
-  if (s:timekeeper % 125) == 0
-    call s:UpdateTrex()
-  endif
+  call vim_trex_runner#trex#update_trex(s:timekeeper)
+  call vim_trex_runner#ground#update_ground(s:timekeeper)
   let s:timekeeper += 1
 endfunction
 
 function! Trex()
-  call s:SetDefaults()
   new
+  setlocal nowrap
   while s:is_game_running
     call s:Draw()
     call s:ProcessUserInput()
     call s:Update()
     sleep 1m
-  endwhile
-endfunction
-
-function! GetTrexFrame(life_time)
-  call s:SetDefaults()
-  while s:is_game_running
-    call s:Draw()
-    call s:ProcessLoopParameters(a:life_time)
-    call s:Update()
   endwhile
 endfunction
