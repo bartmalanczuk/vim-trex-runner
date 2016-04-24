@@ -1,6 +1,10 @@
 let s:is_game_running = 1
 let s:timekeeper = 1
 
+function! s:Initialize()
+  call vim_trex_runner#ground#initialize_ground(g:vim_trex_runner#patterns#ground_frames, 40)
+endfunction
+
 function! s:Draw()
   let trex = vim_trex_runner#trex#get_trex_frame()
   let ground = vim_trex_runner#ground#get_ground_frame()
@@ -24,6 +28,7 @@ endfunction
 function! Trex()
   new
   setlocal nowrap
+  call s:Initialize()
   while s:is_game_running
     call s:Draw()
     call s:ProcessUserInput()
