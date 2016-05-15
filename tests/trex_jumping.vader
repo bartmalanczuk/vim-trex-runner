@@ -1,0 +1,59 @@
+Before:
+  let jumping_frames = [
+    \ [
+      \ "⠀⠀⠀⠀⠀⢀⣀⣀⣀⡀",
+      \ "⠀⠀⠀⠀⠀⣿⣾⣿⣿⣿",
+      \ "⡄⠀⠀⠀⣠⣿⣿⠓⠒⠀",
+      \ "⣿⣦⣴⣿⣿⣿⣿⠙⠀⠀",
+      \ "⠈⠻⣿⣿⣿⡿⠃⠀⠀⠀",
+      \ "⠀⠀⢸⡋⠈⣇⠀⠀⠀⠀",
+    \ ],
+    \ [
+      \ "⠀⠀⠀⠀⠀⣠⢤⣤⣤⣄",
+      \ "⠀⠀⠀⠀⠀⣿⣿⡿⠿⠿",
+      \ "⣆⠀⠀⣀⣴⣿⣿⣉⠉⠀",
+      \ "⢿⣷⣾⣿⣿⣿⣿⠈⠀⠀",
+      \ "⠀⠙⢿⣿⢿⡟⠁⠀⠀⠀",
+      \ "⠀⠀⠸⠅⠀⠧⠀⠀⠀⠀",
+    \ ],
+    \ [
+      \ "⠀⠀⠀⠀⠀⣴⣲⣶⣶⣦",
+      \ "⠀⠀⠀⠀⠀⣿⣿⣟⣛⠛",
+      \ "⣧⡀⢀⣤⣾⣿⣿⢤⠀⠀",
+      \ "⠻⣿⣿⣿⣿⣿⡟⠀⠀⠀",
+      \ "⠀⠈⢻⡿⠻⡏⠀⠀⠀⠀",
+      \ "⠀⠀⠘⠂⠀⠓⠀⠀⠀⠀",
+    \ ],
+    \ [
+      \ "⠀⠀⠀⠀⠀⣾⣽⣿⣿⣷",
+      \ "⡀⠀⠀⠀⢀⣿⣿⠯⠭⠉",
+      \ "⣷⣄⣠⣾⣿⣿⣿⠲⠀⠀",
+      \ "⠙⢿⣿⣿⣿⣿⠏⠀⠀⠀",
+      \ "⠀⠀⢹⠟⠙⡇⠀⠀⠀⠀",
+      \ "⠀⠀⠈⠁⠀⠉⠀⠀⠀⠀",
+    \ ],
+  \ ]
+  call vim_trex_runner#trex_jumping#initialize(jumping_frames)
+
+Execute (Trex jumps):
+  call vim_trex_runner#trex_jumping#jump(0)
+  call vim_trex_runner#trex_jumping#update(9)
+
+Then (Trex goes up):
+  AssertEqual jumping_frames[2], vim_trex_runner#trex_jumping#get_frame()
+
+Execute (Trex jumps):
+  call vim_trex_runner#trex_jumping#jump(0)
+  call vim_trex_runner#trex_jumping#update(18)
+
+Then (Trex goes down):
+  AssertEqual jumping_frames[1], vim_trex_runner#trex_jumping#get_frame()
+
+Execute (Trex jumps):
+  call vim_trex_runner#trex_jumping#jump(0)
+  call vim_trex_runner#trex_jumping#update(9)
+
+Then (Second jump does not affect trex position):
+  AssertEqual jumping_frames[2], vim_trex_runner#trex_jumping#get_frame()
+  call vim_trex_runner#trex_jumping#jump(10)
+  AssertEqual jumping_frames[2], vim_trex_runner#trex_jumping#get_frame()

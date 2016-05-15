@@ -12,7 +12,8 @@ endfunction
 
 function! vim_trex_runner#ground#get_ground_frame()
   let ground = copy(s:ground_frames[s:current_ground_frame])
-  for line_index in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+  let line_index = 0
+  while line_index < len(ground)
     let first_chars = matchstr(
       \ ground[line_index], '\zs.\{' . s:ground_padding_left .'}'
     \ )
@@ -23,6 +24,7 @@ function! vim_trex_runner#ground#get_ground_frame()
       \ ''
     \ )
     let ground[line_index] = ground[line_index] . first_chars
-  endfor
+    let line_index = line_index + 1
+  endwhile
   return ground
 endfunction

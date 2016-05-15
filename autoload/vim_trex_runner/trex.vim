@@ -1,11 +1,23 @@
-let s:current_trex_frame = 0
+function! vim_trex_runner#trex#initialize_trex(trex_running_frames, trex_jumping_frames)
+  call vim_trex_runner#trex_running#initialize(a:trex_running_frames)
+  call vim_trex_runner#trex_jumping#initialize(a:trex_jumping_frames)
+endfunction
 
-function! vim_trex_runner#trex#update_trex(timekeeper)
-  if (a:timekeeper % 125) == 0
-    let s:current_trex_frame = !s:current_trex_frame
+function! vim_trex_runner#trex#update(timekeeper)
+  call vim_trex_runner#trex_running#update(a:timekeeper)
+  call vim_trex_runner#trex_jumping#update(a:timekeeper)
+endfunction
+
+function! vim_trex_runner#trex#handle_input(input, timekeeper)
+  if(a:input == 32)
+    call vim_trex_runner#trex_jumping#jump(a:timekeeper)
   endif
 endfunction
 
 function! vim_trex_runner#trex#get_trex_frame()
-  return g:vim_trex_runner#patterns#trex_frames[s:current_trex_frame]
+  if len(vim_trex_runner#trex_jumping#get_frame())
+    return vim_trex_runner#trex_jumping#get_frame()
+  else
+    return vim_trex_runner#trex_running#get_frame()
+  endif
 endfunction
