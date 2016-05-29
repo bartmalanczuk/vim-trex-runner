@@ -1,6 +1,17 @@
-function! vim_trex_runner#trex#initialize_trex(trex_running_frames, trex_jumping_frames)
-  call vim_trex_runner#trex_running#initialize(a:trex_running_frames)
-  call vim_trex_runner#trex_jumping#initialize(a:trex_jumping_frames)
+function! vim_trex_runner#trex#initialize_trex(
+  \ trex_running_frames,
+  \ trex_jumping_frames,
+  \ trex_running_frame_length,
+  \ trex_jumping_frame_length
+\ )
+  call vim_trex_runner#trex_running#initialize(
+    \ a:trex_running_frames,
+    \ a:trex_running_frame_length
+  \ )
+  call vim_trex_runner#trex_jumping#initialize(
+    \ a:trex_jumping_frames,
+    \ a:trex_jumping_frame_length
+  \ )
 endfunction
 
 function! vim_trex_runner#trex#update(timekeeper)

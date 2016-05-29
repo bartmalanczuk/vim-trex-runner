@@ -33,7 +33,7 @@ Before:
       \ "⠀⠀⠈⠁⠀⠉⠀⠀⠀⠀",
     \ ],
   \ ]
-  call vim_trex_runner#trex_jumping#initialize(jumping_frames)
+  call vim_trex_runner#trex_jumping#initialize(jumping_frames, 3)
 
 Execute (Trex jumps):
   call vim_trex_runner#trex_jumping#jump(0)

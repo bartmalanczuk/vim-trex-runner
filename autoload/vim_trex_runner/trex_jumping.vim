@@ -1,7 +1,7 @@
-function! vim_trex_runner#trex_jumping#initialize(frames)
+function! vim_trex_runner#trex_jumping#initialize(frames, frame_length)
   let s:frames = a:frames
   let s:number_of_frames = len(s:frames)
-  let s:frame_length = 3
+  let s:frame_length = a:frame_length
   let s:jump_moment = -1
   let s:total_jump_time = s:frame_length*s:number_of_frames*2
   let s:current_frame_index = 0

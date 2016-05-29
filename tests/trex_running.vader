@@ -17,7 +17,7 @@ Before:
       \ "⠀⠀⠀⠀⠀⠓⠀⠀⠀⠀"
     \ ],
   \ ]
-  call vim_trex_runner#trex_running#initialize(running_frames)
+  call vim_trex_runner#trex_running#initialize(running_frames, 125)
 
   let right_footed = running_frames[0]
   let left_footed = running_frames[1]

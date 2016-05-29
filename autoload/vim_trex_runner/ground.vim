@@ -1,30 +1,14 @@
-function! vim_trex_runner#ground#initialize_ground(ground_frames, line_length)
+function! vim_trex_runner#ground#initialize_ground(ground_frames, frame_length)
   let s:ground_frames = a:ground_frames
-  let s:line_length = a:line_length
   let s:current_ground_frame = 0
-  let s:ground_padding_left = 0
+  let s:number_of_frames = len(s:ground_frames)
+  let s:frame_length = a:frame_length
 endfunction
 
 function! vim_trex_runner#ground#update_ground(timekeeper)
-  let s:current_ground_frame = (a:timekeeper/10)%2
-  let s:ground_padding_left = (a:timekeeper/20)%(s:line_length + 1)
+  let s:current_ground_frame = (a:timekeeper/s:frame_length)%s:number_of_frames
 endfunction
 
 function! vim_trex_runner#ground#get_ground_frame()
-  let ground = copy(s:ground_frames[s:current_ground_frame])
-  let line_index = 0
-  while line_index < len(ground)
-    let first_chars = matchstr(
-      \ ground[line_index], '\zs.\{' . s:ground_padding_left .'}'
-    \ )
-    let ground[line_index] = substitute(
-      \ ground[line_index],
-      \ '\zs.\{' . s:ground_padding_left . '}',
-      \ '',
-      \ ''
-    \ )
-    let ground[line_index] = ground[line_index] . first_chars
-    let line_index = line_index + 1
-  endwhile
-  return ground
+  return s:ground_frames[s:current_ground_frame]
 endfunction
