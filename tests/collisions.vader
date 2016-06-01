@@ -1,0 +1,50 @@
+Execute (Initialize patterns which don't have common cells that are filled):
+  let patterns = [
+    \ ["⠀⣿"],
+    \ ["⣿⠀"]
+  \ ]
+Then (They don't collide):
+  Assert !vim_trex_runner#collisions#detect(patterns[0], patterns[1])
+
+Execute (Initialize patterns which have common cells that don't overlap):
+  let patterns = [
+    \ ["⣧"],
+    \ ["⠘"]
+  \ ]
+Then (They don't collide):
+  Assert !vim_trex_runner#collisions#detect(patterns[0], patterns[1])
+
+Execute (Initialize patterns which are the same):
+  let patterns = [
+    \ ["⡇"],
+    \ ["⡇"]
+  \ ]
+Then (They collide):
+  Assert vim_trex_runner#collisions#detect(patterns[0], patterns[1])
+
+Execute (Initialize patterns which have common cells that overlap):
+  let patterns = [
+    \ ["⠈"],
+    \ ["⠛"]
+  \ ]
+
+Then (They collide):
+  Assert vim_trex_runner#collisions#detect(patterns[0], patterns[1])
+
+Execute (Initialize multiline patterns that overlap):
+  let patterns = [
+    \ ["⠈⣧", "⠻⢤"],
+    \ ["⠛⣿", "⣤⣧"]
+  \ ]
+
+Then (They collide):
+  Assert vim_trex_runner#collisions#detect(patterns[0], patterns[1])
+
+Execute (Initialize multiline patterns that don't overlap):
+  let patterns = [
+    \ ["⠈⣧", "⠻⢤"],
+    \ ["⠂⠀", "⢀⠘"]
+  \ ]
+
+Then (They collide):
+  Assert !vim_trex_runner#collisions#detect(patterns[0], patterns[1])

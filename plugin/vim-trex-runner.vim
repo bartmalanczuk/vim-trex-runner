@@ -27,6 +27,9 @@ function! s:Update()
   call vim_trex_runner#trex#update(s:timekeeper)
   call vim_trex_runner#obstacles#update(s:timekeeper)
   call vim_trex_runner#ground#update_ground(s:timekeeper)
+  let trex_frame = vim_trex_runner#trex#get_trex_frame()
+  let obstacles_frame = vim_trex_runner#obstacles#get_frame()
+  let s:is_game_running = !vim_trex_runner#collisions#detect(trex_frame, obstacles_frame)
   let s:timekeeper += 1
 endfunction
 
