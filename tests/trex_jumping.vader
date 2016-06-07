@@ -1,59 +1,44 @@
 Before:
-  let jumping_frames = [
-    \ [
-      \ "⠀⠀⠀⠀⠀⢀⣀⣀⣀⡀",
-      \ "⠀⠀⠀⠀⠀⣿⣾⣿⣿⣿",
-      \ "⡄⠀⠀⠀⣠⣿⣿⠓⠒⠀",
-      \ "⣿⣦⣴⣿⣿⣿⣿⠙⠀⠀",
-      \ "⠈⠻⣿⣿⣿⡿⠃⠀⠀⠀",
-      \ "⠀⠀⢸⡋⠈⣇⠀⠀⠀⠀",
-    \ ],
-    \ [
-      \ "⠀⠀⠀⠀⠀⣠⢤⣤⣤⣄",
-      \ "⠀⠀⠀⠀⠀⣿⣿⡿⠿⠿",
-      \ "⣆⠀⠀⣀⣴⣿⣿⣉⠉⠀",
-      \ "⢿⣷⣾⣿⣿⣿⣿⠈⠀⠀",
-      \ "⠀⠙⢿⣿⢿⡟⠁⠀⠀⠀",
-      \ "⠀⠀⠸⠅⠀⠧⠀⠀⠀⠀",
-    \ ],
-    \ [
-      \ "⠀⠀⠀⠀⠀⣴⣲⣶⣶⣦",
-      \ "⠀⠀⠀⠀⠀⣿⣿⣟⣛⠛",
-      \ "⣧⡀⢀⣤⣾⣿⣿⢤⠀⠀",
-      \ "⠻⣿⣿⣿⣿⣿⡟⠀⠀⠀",
-      \ "⠀⠈⢻⡿⠻⡏⠀⠀⠀⠀",
-      \ "⠀⠀⠘⠂⠀⠓⠀⠀⠀⠀",
-    \ ],
-    \ [
-      \ "⠀⠀⠀⠀⠀⣾⣽⣿⣿⣷",
-      \ "⡀⠀⠀⠀⢀⣿⣿⠯⠭⠉",
-      \ "⣷⣄⣠⣾⣿⣿⣿⠲⠀⠀",
-      \ "⠙⢿⣿⣿⣿⣿⠏⠀⠀⠀",
-      \ "⠀⠀⢹⠟⠙⡇⠀⠀⠀⠀",
-      \ "⠀⠀⠈⠁⠀⠉⠀⠀⠀⠀",
-    \ ],
-  \ ]
-  call vim_trex_runner#trex_jumping#initialize(jumping_frames, 3)
+  function! s:make_trex_reach_phase(phase_index)
+    let i = 0
+    while i < a:phase_index
+      call vim_trex_runner#trex_jumping#update()
+      let i = i + 1
+    endwhile
+  endfunction
+  let jumping_frames = g:vim_trex_runner#patterns#trex_jumping#frames
+  call vim_trex_runner#trex_jumping#initialize(jumping_frames)
 
 Execute (Trex jumps):
-  call vim_trex_runner#trex_jumping#jump(0)
-  call vim_trex_runner#trex_jumping#update(9)
+  call vim_trex_runner#trex_jumping#jump()
 
-Then (Trex goes up):
-  AssertEqual jumping_frames[2], vim_trex_runner#trex_jumping#get_frame()
+Then (Trex is on ground):
+  AssertEqual [], vim_trex_runner#trex_jumping#get_frame()
 
-Execute (Trex jumps):
-  call vim_trex_runner#trex_jumping#jump(0)
-  call vim_trex_runner#trex_jumping#update(18)
+Execute (Trex goes up):
+  call vim_trex_runner#trex_jumping#jump()
+  call s:make_trex_reach_phase(10)
 
-Then (Trex goes down):
-  AssertEqual jumping_frames[1], vim_trex_runner#trex_jumping#get_frame()
+Then (Trex is in the air):
+  AssertEqual jumping_frames[18], vim_trex_runner#trex_jumping#get_frame()
 
-Execute (Trex jumps):
-  call vim_trex_runner#trex_jumping#jump(0)
-  call vim_trex_runner#trex_jumping#update(9)
+Execute (Trex goes up and up):
+  call vim_trex_runner#trex_jumping#jump()
+  call s:make_trex_reach_phase(20)
 
-Then (Second jump does not affect trex position):
-  AssertEqual jumping_frames[2], vim_trex_runner#trex_jumping#get_frame()
-  call vim_trex_runner#trex_jumping#jump(10)
-  AssertEqual jumping_frames[2], vim_trex_runner#trex_jumping#get_frame()
+Then (Trex is highly in air):
+  AssertEqual jumping_frames[30], vim_trex_runner#trex_jumping#get_frame()
+
+Execute (Trex goes down):
+  call vim_trex_runner#trex_jumping#jump()
+  call s:make_trex_reach_phase(35)
+
+Then (Trex falls):
+  AssertEqual jumping_frames[28], vim_trex_runner#trex_jumping#get_frame()
+
+Execute (Trex lands):
+  call vim_trex_runner#trex_jumping#jump()
+  call s:make_trex_reach_phase(52)
+
+Then (Trex is on ground):
+  AssertEqual [], vim_trex_runner#trex_jumping#get_frame()

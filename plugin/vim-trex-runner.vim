@@ -1,7 +1,7 @@
 function! s:Initialize()
-  call vim_trex_runner#ground#initialize_ground(g:vim_trex_runner#patterns#ground_frames, 2)
-  call vim_trex_runner#trex#initialize_trex(g:vim_trex_runner#patterns#trex_running_frames, g:vim_trex_runner#patterns#trex_jumping_frames, 125, 2)
-  call vim_trex_runner#obstacles#initialize(g:vim_trex_runner#patterns#obstacles_frames, 40)
+  call vim_trex_runner#ground#initialize_ground(g:vim_trex_runner#patterns#ground#frames, 1)
+  call vim_trex_runner#trex#initialize_trex(g:vim_trex_runner#patterns#trex_running#frames, g:vim_trex_runner#patterns#trex_jumping#frames, 10)
+  call vim_trex_runner#obstacles#initialize(g:vim_trex_runner#patterns#obstacles#frames, 1)
 
   let s:is_game_running = 1
   let s:timekeeper = 1
