@@ -1,0 +1,37 @@
+Before:
+  function! s:move_obstacles(offset)
+    let i = 0
+    while i < a:offset
+      call vim_trex_runner#obstacles#update()
+      let i = i + 1
+    endwhile
+  endfunction
+  let obstacles_frames = [
+    \ [
+      \ ['a1'], ['b1'], ['c1'], ['d1'], ['e1'], ['f1'],
+    \ ],
+    \ [
+      \ ['a2'], ['b2'], ['c2'], ['d2'], ['e2'], ['f2']
+    \ ]
+  \ ]
+  call vim_trex_runner#obstacles#initialize(obstacles_frames)
+
+Execute (Start moving obstacles):
+  call vim_trex_runner#obstacles#update()
+
+Then (At start obstacles are get from first pattern, first frame):
+  AssertEqual obstacles_frames[0][0], vim_trex_runner#obstacles#get_frame()
+
+Execute (Move obstacles a bit):
+  call s:move_obstacles(3)
+
+Then (Obstacles move accordingly):
+  AssertEqual obstacles_frames[0][2], vim_trex_runner#obstacles#get_frame()
+
+Execute (Move obstacles a bit more):
+  call s:move_obstacles(7)
+
+Then (Patterns moves to beggining):
+  Assert
+    \ obstacles_frames[0][0] == vim_trex_runner#obstacles#get_frame()
+    \ || obstacles_frames[1][0] == vim_trex_runner#obstacles#get_frame()

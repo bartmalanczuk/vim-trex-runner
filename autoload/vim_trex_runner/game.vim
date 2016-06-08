@@ -2,7 +2,7 @@
 function! s:Initialize()
   call vim_trex_runner#ground#initialize_ground(g:vim_trex_runner#patterns#ground#frames, 1)
   call vim_trex_runner#trex#initialize_trex(g:vim_trex_runner#patterns#trex_running#frames, g:vim_trex_runner#patterns#trex_jumping#frames, 10)
-  call vim_trex_runner#obstacles#initialize(g:vim_trex_runner#patterns#obstacles#frames, 1)
+  call vim_trex_runner#obstacles#initialize(g:vim_trex_runner#patterns#obstacles#frames)
 
   let s:is_game_running = 1
   let s:timekeeper = 1
@@ -26,7 +26,7 @@ function! s:Update()
   let input = getchar(0)
   call vim_trex_runner#trex#handle_input(input, s:timekeeper)
   call vim_trex_runner#trex#update(s:timekeeper)
-  call vim_trex_runner#obstacles#update(s:timekeeper)
+  call vim_trex_runner#obstacles#update()
   call vim_trex_runner#ground#update_ground(s:timekeeper)
   let trex_frame = vim_trex_runner#trex#get_trex_frame()
   let obstacles_frame = vim_trex_runner#obstacles#get_frame()
