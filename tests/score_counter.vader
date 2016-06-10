@@ -1,0 +1,21 @@
+Execute (Initialie counter):
+  call vim_trex_runner#score_counter#initialize()
+
+Then (Score value equals 0):
+  AssertEqual 0, vim_trex_runner#score_counter#score()
+
+Before:
+  call vim_trex_runner#score_counter#initialize()
+
+Execute (Update counter):
+  call vim_trex_runner#score_counter#update(420)
+
+Then (Score value is computed):
+  AssertEqual (420/4)*10, vim_trex_runner#score_counter#score()
+
+Execute (Reset counter):
+  call vim_trex_runner#score_counter#update(500)
+  call vim_trex_runner#score_counter#initialize()
+
+Then (Score value equals 0):
+  AssertEqual 0, vim_trex_runner#score_counter#score()
